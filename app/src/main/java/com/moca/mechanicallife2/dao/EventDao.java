@@ -152,8 +152,8 @@ public class EventDao {
         db = dbhelper.getReadableDatabase();
         try {
             //查询
-            String sql = "select *from myevent where yearEnd*10000+monthEnd*100+dayEnd > " + dateNumber +" and yearStart*10000+monthStart*100+dayStart < " + dateNumber+" and "+strWeekFlag+" = 1 ";
-//            Log.i("数据库","**************"+sql);
+            String sql = "select *from myevent where yearEnd*10000+monthEnd*100+dayEnd+1 > " + dateNumber +" and yearStart*10000+monthStart*100+dayStart-1 < " + dateNumber+" and "+strWeekFlag+" = 1 ";
+            Log.i("数据库","**************"+sql);
             Cursor cursor = db.rawQuery(sql,null);
             //循环取出数据
             while (cursor.moveToNext()){
@@ -194,6 +194,7 @@ public class EventDao {
 //                        "-----week1" + event.getWeek1() + "-----week2" + event.getWeek2() + "-----week2" + event.getWeek3() +
 //                        "-----week4" + event.getWeek4() + "-----week5" + event.getWeek5() + "-----week6" + event.getWeek6() +
 //                        "-----week7" + event.getWeek7());
+                System.out.println(event.getId()+"         "+event.getEventName());
 
             }
         } catch (Exception e) {
@@ -580,6 +581,8 @@ public class EventDao {
         db = dbhelper.getReadableDatabase();
         String sql = "update myevent set eventStateNow = ? where id = ?";
         db.execSQL(sql,new Object[]{state,id});
+
+        Log.i("数据库测试","updateEventStateNowById");
 
     }
 

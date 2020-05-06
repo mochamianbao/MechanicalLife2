@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.moca.mechanicallife2.dao.UserDao;
 import com.moca.mechanicallife2.databinding.FragmentUserInfoBinding;
 import com.moca.mechanicallife2.myentity.MyUser;
 
@@ -44,20 +45,55 @@ public class UserInfoFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        myUser = MyApplication.getThisUser();
 
+
+
+//        //绘制个人信息页面
+//        String sex = "";
+//        switch (myUser.getUserSex()){
+//            case 0:
+//                sex = "男";
+//                break;
+//            case 1:
+//                sex = "女";
+//                break;
+//                default:
+//                    break;
+//        }
+//        binding.UserInfoNameget.setText(myUser.getUserName());
+//        binding.UserInfoSexget.setText(sex);
+//        binding.UserInfoAgeget.setText(String.valueOf(myUser.getUserAge()));
+//        binding.UserInfoComplete.setText(String.valueOf(myUser.getThisUserCompletedNum()));
+//
+//        //跳转到修改信息页面
+//        binding.userInfoBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getActivity(),UserInfoChangeActivity.class));
+//            }
+//        });
+
+    }
+
+    @Override
+    public void onResume() {
 
         //绘制个人信息页面
+        super.onResume();
+
+        UserDao userDao = new UserDao(getActivity());
+        myUser = userDao.findEventInfo(MyApplication.getThisUser().getUid());
+
         String sex = "";
-        switch (myUser.getUserSex()){
+        switch (myUser.getUserSex()) {
             case 0:
                 sex = "男";
                 break;
             case 1:
                 sex = "女";
                 break;
-                default:
-                    break;
+            default:
+                break;
         }
         binding.UserInfoNameget.setText(myUser.getUserName());
         binding.UserInfoSexget.setText(sex);
@@ -68,8 +104,12 @@ public class UserInfoFragment extends Fragment {
         binding.userInfoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),UserInfoChangeActivity.class));
+                startActivity(new Intent(getActivity(), UserInfoChangeActivity.class));
             }
         });
     }
+
+
+
+
 }

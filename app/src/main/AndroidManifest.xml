@@ -32,6 +32,11 @@
                 <action android:name="com.moca.mechanicallife2.Utils.AlarmWindowReceiver" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".Utils.FinishWindowReceiver">
+            <intent-filter>
+                <action android:name="com.moca.mechanicallife2.Utils.FinishWindowReceiver" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

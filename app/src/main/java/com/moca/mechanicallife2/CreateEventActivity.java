@@ -322,8 +322,8 @@ public class CreateEventActivity extends AppCompatActivity {
                     "7:"+myEvent.getWeek7());
 //
             eventDao.insert(myEvent);
-
-//            finish();
+            Toast.makeText(this,"创建事件成功",Toast.LENGTH_LONG).show();
+            finish();
         }
 
 

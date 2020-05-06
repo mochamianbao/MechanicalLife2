@@ -65,6 +65,7 @@ public class UserInfoChangeActivity extends AppCompatActivity {
 
                     int id = MyApplication.getThisUser().getUid();
                     userDao.changeUserInfo(userNameChange,userSexChangeInt,userAgeChange,id);
+                    finish();
                 }
 
 

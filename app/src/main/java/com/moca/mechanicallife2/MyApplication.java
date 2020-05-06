@@ -5,8 +5,10 @@ import android.app.Application;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.util.Log;
 
 import com.moca.mechanicallife2.dao.EventDao;
+import com.moca.mechanicallife2.dao.UserDao;
 import com.moca.mechanicallife2.myentity.DateAndTime;
 import com.moca.mechanicallife2.myentity.MyEvent;
 import com.moca.mechanicallife2.myentity.MyUser;
@@ -20,6 +22,8 @@ import java.util.List;
 public class MyApplication extends Application {
     private static  int HAVE_EVENT_PROGRESS = 0;
 
+
+
     private static MyUser thisUser = new MyUser();
 
     public static void setHaveEventProgress(int haveEventProgress) {
@@ -29,43 +33,89 @@ public class MyApplication extends Application {
     public static int getHaveEventProgress() {
         return HAVE_EVENT_PROGRESS;
     }
+    public static DateAndTime todayEventList;
+
+    EventDao eventDao = new EventDao(this);
+    UserDao userDao = new UserDao(this);
 
     @Override
     public void onCreate() {
         super.onCreate();
 
+//        System.out.println("全局变量？");
 
-        //初始化闹钟
-        EventDao eventDao = new EventDao(this);
+
         List<MyEvent> myEvents = new ArrayList();
-        DateAndTime todayEventList = getTodayEventList();
+        //获取今天的日期信息
+        todayEventList = getTodayEventList();
+        //获取今天的所有事件信息
         myEvents = eventDao.queryAllByDate(todayEventList.getMyDateNumber(),todayEventList.strWeekFlag);
 
+//        Log.i("qqqqq","*******************************************"+myEvents.size());
+        //初始化闹钟
         for (int i = 0; i < myEvents.size(); i++) {
             MyEvent myEvent = myEvents.get(i);
             setAlarmWindow(myEvent.getEventName(),myEvent.getHourStart(),myEvent.getMinuteStart(),i);
-            System.out.println("55555555"+" "+myEvent.getEventName()+" "+myEvent.getHourStart()+" "+myEvent.getMinuteStart());
+        }
+
+        //初始化今日事件完成状态信息
+        for (int i = 0; i < myEvents.size(); i++) {
+            MyEvent myEvent = myEvents.get(i);
+            if (myEvent.getEventStateNow() == 1){
+                //进行中事件在退出程序后直接判为未完成事件
+                eventDao.updateEventStateNowById(myEvent.getId(),3);
+                System.out.println("               22222222");
+            }
+            else if (myEvent.getEventStateNow() == 0){
+                //若待办事件的开始时间超过五分钟，直接转为未完成事件
+                int eventStartTimeNum = myEvent.getHourStart()*60+myEvent.getMonthStart();
+                int nowTimeNum = todayEventList.myHour*60+todayEventList.myMinute;
+                if ((nowTimeNum-eventStartTimeNum)>5){
+                    eventDao.updateEventStateNowById(myEvent.getId(),3);
+                }
+
+            }
         }
 
 
-
-
-
+//        init();
 
     }
 
-    public void setAlarmWindow(String eventName, int hour, int minute, int num){
+//    public static void init (){
+//        if (thisUser.getLastLoginDay() != todayEventList.myDay){
+//            userDao.changelastLoginDay(thisUser.getUid(),todayEventList.myDay);
+//            userDao.changethisDayCompletedNum(thisUser.getUid(),0);
+//        }
+//        if (thisUser.getLastLoginMonth() != todayEventList.myMonth){
+//            userDao.changelastLoginMonth(thisUser.getUid(),todayEventList.myMonth);
+//            userDao.changethisMonthCompletedNum(thisUser.getUid(),0);
+//
+//        }
+//        System.out.println("初始化1"+thisUser.getLastLoginDay()+"   "+todayEventList.myDay+ "   " +thisUser.getUid());
+//        System.out.println("初始化2"+thisUser.getLastLoginMonth()+"   "+todayEventList.myMonth+ "   " +thisUser.getUid());
+//
+//
+//        userDao.changeEventprogress(thisUser.getUid(),0);
+//    }
+
+
+
+    public void setAlarmWindow(String eventName, int startHour, int startMinute, int num){
 
         Calendar mCalendar = Calendar.getInstance();
         mCalendar.setTimeInMillis(System.currentTimeMillis());
 
         //设置在几点提醒  设置的为0点
-        mCalendar.set(Calendar.HOUR_OF_DAY, hour);
+        mCalendar.set(Calendar.HOUR_OF_DAY, startHour);
         //设置在几分提醒  设置的为0分
-        mCalendar.set(Calendar.MINUTE, minute);
+        mCalendar.set(Calendar.MINUTE, startMinute);
 
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.putExtra("eventName",eventName);
+//        intent.putExtra("endHour",endHour);
+//        intent.putExtra("endMinute",endMinute);
+//        intent.putExtra("num",num);
         intent.setComponent(new ComponentName("com.moca.mechanicallife2",
                 "com.moca.mechanicallife2.Utils.AlarmWindowReceiver"));
 //        String content = input.getText().toString();
@@ -75,10 +125,6 @@ public class MyApplication extends Application {
         //得到AlarmManager实例
         AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
         am.set(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), pi);
-
-
-
-
 
 
     }
@@ -115,6 +161,8 @@ public class MyApplication extends Application {
         dateAndTime.myYear=cal.get(Calendar.YEAR);       //获取年月日
         dateAndTime.myMonth=cal.get(Calendar.MONTH)+1;   //获取到的月份是从0开始计数
         dateAndTime.myDay=cal.get(Calendar.DAY_OF_MONTH);
+        dateAndTime.myHour=cal.get(Calendar.HOUR_OF_DAY);
+        dateAndTime.myMinute=cal.get(Calendar.MINUTE);
 
         return dateAndTime;
     }

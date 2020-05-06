@@ -64,6 +64,10 @@ public class StatisticsFragment extends Fragment {
         binding.thisMonthPlan.setText(String.valueOf(monthPlanNumber));
         binding.thisDayPlan.setText(String.valueOf(dayPlanNumber));
 
+        binding.thisDayFinish.setText(String.valueOf(MyApplication.getThisUser().getThisDayCompletedNum()));
+        binding.thisWeekFinish.setText(String.valueOf(MyApplication.getThisUser().getThisWeekCompletedNum()));
+        binding.thisMonthFinish.setText(String.valueOf(MyApplication.getThisUser().getThisMonthCompletedNum()));
+
 
         binding.statisticsButton.setOnClickListener(new View.OnClickListener() {
             @Override

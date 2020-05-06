@@ -100,5 +100,132 @@ public class UserDao {
         System.out.println("数据库完成修改工作");
     }
 
+    /**
+     * 根据用户ID修改现在是否进行事件信息
+     */
+    public void changeEventprogress(int id,int state){
+        SQLiteDatabase db = null;
+        db = dbhelper.getWritableDatabase();
+        String sql = "update MyUser set haveEventprogress = ?  where id = ?";
+        db.execSQL(sql,new Object[]{state,id});
+        System.out.println("数据库完成修改用户工作状态"+state+"   "+id);
+        System.out.println(sql);
+    }
+
+
+    /**
+     * 根据用户ID修改现在是否进行事件信息
+     */
+    public int findEventprogress(int tid){
+        SQLiteDatabase db = null;
+        db = dbhelper.getReadableDatabase();
+        String sql = "select * from MyUser where id ="+tid;
+        Cursor cursor = db.rawQuery(sql,null);
+        cursor.moveToFirst();
+
+        int state = cursor.getInt(cursor.getColumnIndex("haveEventprogress"));
+
+        System.out.println("数据库完成查找用户工作状态"+"   "+tid+"   " +state);
+        System.out.println(sql);
+        return state;
+    }
+    /**
+     * 根据用户ID修改信息，上次登录年份
+     */
+    public void changelastLoginYear(int id,int value){
+        SQLiteDatabase db = null;
+        db = dbhelper.getWritableDatabase();
+        String sql = "update MyUser set lastLoginYear = ?  where id = ?";
+        db.execSQL(sql,new Object[]{value,id});
+        System.out.println("数据库完成修改用户工作状态"+value+"   "+id);
+    }
+    /**
+     * 根据用户ID修改信息，上次登录月份
+     */
+    public void changelastLoginMonth(int id,int value){
+        SQLiteDatabase db = null;
+        db = dbhelper.getWritableDatabase();
+        String sql = "update MyUser set lastLoginMonth = ?  where id = ?";
+        db.execSQL(sql,new Object[]{value,id});
+        System.out.println("数据库完成修改用户工作状态月份"+value+"   "+id);
+        System.out.println(sql);
+    }
+    /**
+     * 根据用户ID修改信息，上次登录日
+     */
+    public void changelastLoginDay(int id,int value){
+        SQLiteDatabase db = null;
+        db = dbhelper.getWritableDatabase();
+        String sql = "update MyUser set lastLoginDay = ?  where id = ?";
+        db.execSQL(sql,new Object[]{value,id});
+        System.out.println("数据库完成修改用户工作状态日"+value+"   "+id);
+        System.out.println(sql);
+    }
+
+    /**
+     * 根据用户ID修改信息，本日完成数
+     */
+    public void changethisDayCompletedNum(int id,int value){
+        SQLiteDatabase db = null;
+        db = dbhelper.getWritableDatabase();
+        String sql = "update MyUser set thisDayCompletedNum = ?  where id = ?";
+        db.execSQL(sql,new Object[]{value,id});
+        System.out.println("数据库完成修改用户工作状态本日完成数"+value+"   "+id);
+        System.out.println(sql);
+    }
+
+    /**
+     * 根据用户ID修改信息，本周完成数
+     */
+    public void changethisWeekCompletedNum(int id,int value){
+        SQLiteDatabase db = null;
+        db = dbhelper.getWritableDatabase();
+        String sql = "update MyUser set thisWeekCompletedNum = ?  where id = ?";
+        db.execSQL(sql,new Object[]{value,id});
+        System.out.println("数据库完成修改用户工作状态本周完成数"+value+"   "+id);
+    }
+
+    /**
+     * 根据用户ID修改信息，本月完成数
+     */
+    public void changethisMonthCompletedNum(int id,int value){
+        SQLiteDatabase db = null;
+        db = dbhelper.getWritableDatabase();
+        String sql = "update MyUser set thisMonthCompletedNum = ?  where id = ?";
+        db.execSQL(sql,new Object[]{value,id});
+        System.out.println("数据库完成修改用户工作状态本月完成数"+value+"   "+id);
+    }
+
+    /**
+     * 根据用户ID修改信息，用户完成数
+     */
+    public void changethisUserCompletedNum(int id,int value){
+        SQLiteDatabase db = null;
+        db = dbhelper.getWritableDatabase();
+        String sql = "update MyUser set thisUserCompletedNum = ?  where id = ?";
+        db.execSQL(sql,new Object[]{value,id});
+        System.out.println("数据库完成修改用户工作状态用户完成数"+value+"   "+id);
+    }
+
+    /**
+     * 根据用户ID查找用户信息
+     */
+    public MyUser findEventInfo(int tid){
+        SQLiteDatabase db = null;
+        db = dbhelper.getReadableDatabase();
+        MyUser myUser = new MyUser();
+        String sql = "select * from MyUser where id ="+tid;
+        Cursor cursor = db.rawQuery(sql,null);
+        cursor.moveToFirst();
+        myUser.setUserName(cursor.getString(cursor.getColumnIndex("userName")));
+        myUser.setUserAge(cursor.getInt(cursor.getColumnIndex("userage")));
+        myUser.setUserSex(cursor.getInt(cursor.getColumnIndex("sex")));
+
+        return myUser;
+    }
+
+
+
+
 
 }

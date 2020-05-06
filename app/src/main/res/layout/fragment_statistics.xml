@@ -90,7 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="本周待办事件数"
+            android:text="本周完成事件数"
             app:layout_constraintStart_toStartOf="@+id/textView38"
             app:layout_constraintTop_toBottomOf="@+id/textView38" />
 
@@ -99,7 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="本月待办事件数"
+            android:text="本月完成事件数"
             app:layout_constraintStart_toStartOf="@+id/textView42"
             app:layout_constraintTop_toBottomOf="@+id/textView42" />
 
@@ -117,7 +117,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="本日待办事件数"
+            android:text="本日完成事件数"
             app:layout_constraintStart_toStartOf="@+id/textView30"
             app:layout_constraintTop_toBottomOf="@+id/textView30" />
 
@@ -158,7 +158,7 @@
             app:layout_constraintStart_toStartOf="@+id/guideline21" />
 
         <TextView
-            android:id="@+id/thisWeekWait"
+            android:id="@+id/thisWeekFinish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -187,7 +187,7 @@
             app:layout_constraintStart_toStartOf="@+id/guideline21" />
 
         <TextView
-            android:id="@+id/thisMonthWait"
+            android:id="@+id/thisMonthFinish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -197,7 +197,7 @@
             app:layout_constraintTop_toBottomOf="@+id/thisMonthPlan" />
 
         <TextView
-            android:id="@+id/thisDayWait"
+            android:id="@+id/thisDayFinish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"

@@ -1,27 +1,25 @@
 package com.moca.mechanicallife2.dao;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.moca.mechanicallife2.myentity.MyEvent;
 
 public class EViewModel extends ViewModel {
 
-    private MyEvent myEvent;
 
 
+    public MutableLiveData<Integer> LiveDataNumber;
 
-//    public int insert (MyEvent myEvent){
-//
-//        EventDao eventDao = new EventDao(this);
-//        eventDao.insert(myEvent);
-//
-//        return 1;
-//    }
+    public MutableLiveData<Integer> getLiveDataNumber() {
+        if (LiveDataNumber == null){
+            LiveDataNumber = new MutableLiveData<>();
+            LiveDataNumber.setValue(0);
+        }
+        return LiveDataNumber;
+    }
 
-//    public MyEvent setDate(MyEvent event){
-//        myEvent.setYearStart(event.getYearStart());
-//
-//    }
-
-
+    public void setLiveDataNumber(MutableLiveData<Integer> liveDataNumber) {
+        LiveDataNumber = liveDataNumber;
+    }
 }

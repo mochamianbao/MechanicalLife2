@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,9 +26,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private MyUser myUser = new MyUser();//输入的用户信息
-    private MyUser findUser = new MyUser();
+    private static MyUser findUser = new MyUser();
     private List<MyUser> tableUser = new ArrayList<>();//获取数据库的用户信息
     private EditText editTextName,editTextPassword;
+
     
 
     @Override
@@ -54,8 +56,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 checkLogin();
+
             }
         });
+
 
 
 
@@ -102,6 +106,8 @@ public class LoginActivity extends AppCompatActivity {
 
             Toast.makeText(LoginActivity.this,"登录成功",Toast.LENGTH_LONG).show();
             startActivity(new Intent(LoginActivity.this,MainActivity.class));
+            init(this);
+            finish();
         }
 
         
@@ -109,7 +115,23 @@ public class LoginActivity extends AppCompatActivity {
         
     }
 
+    public static void init (Context context){
+        UserDao userDao = new UserDao(context);
+        if (findUser.getLastLoginDay() != MyApplication.todayEventList.myDay){
+            userDao.changelastLoginDay(findUser.getUid(),MyApplication.todayEventList.myDay);
+            userDao.changethisDayCompletedNum(findUser.getUid(),0);
+        }
+        if (findUser.getLastLoginMonth() != MyApplication.todayEventList.myMonth){
+            userDao.changelastLoginMonth(findUser.getUid(),MyApplication.todayEventList.myMonth);
+            userDao.changethisMonthCompletedNum(findUser.getUid(),0);
 
+        }
+        System.out.println("初始化1"+findUser.getLastLoginDay()+"   "+MyApplication.todayEventList.myDay+ "   " +findUser.getUid());
+        System.out.println("初始化2"+findUser.getLastLoginMonth()+"   "+MyApplication.todayEventList.myMonth+ "   " +findUser.getUid());
+
+
+        userDao.changeEventprogress(findUser.getUid(),0);
+    }
 
 
 
