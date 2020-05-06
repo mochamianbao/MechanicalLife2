@@ -624,5 +624,6 @@ public class EventDao {
         Log.i("数据库updateEventTime",startDate.myHour+"  "+startDate.myMinute+ "  "+endDate.myHour+"  "+endDate.myMinute+" "+id);
     }
 
+    /////i都叫降低骄傲的
 
 }
