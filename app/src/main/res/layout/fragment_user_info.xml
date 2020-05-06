@@ -46,7 +46,7 @@
             android:id="@+id/textView26"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="等级"
+            android:text="目前完成事件数"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline31"
             app:layout_constraintStart_toStartOf="@+id/UserInfoAge"
@@ -143,15 +143,13 @@
             android:id="@+id/UserInfoLookget"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="80dp"
-            android:layout_marginLeft="80dp"
             android:src="@drawable/weixintx"
             app:layout_constraintBottom_toTopOf="@+id/guideline27"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/guideline25"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline26"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/user" />
 
         <TextView
             android:id="@+id/UserInfoLook"
@@ -159,6 +157,7 @@
             android:layout_height="wrap_content"
             android:text="头像"
             android:textSize="24sp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/guideline27"
             app:layout_constraintEnd_toStartOf="@+id/guideline25"
             app:layout_constraintHorizontal_bias="0.215"

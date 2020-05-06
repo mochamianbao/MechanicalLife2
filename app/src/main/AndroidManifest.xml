@@ -12,17 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ReviseEventTimeActivity"></activity>
-        <activity android:name=".CreateEventActivity" />
-        <activity android:name=".EventDetailActivity" />
-        <activity android:name=".DayPlanActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ReviseEventTimeActivity" />
+        <activity android:name=".CreateEventActivity" />
+        <activity android:name=".EventDetailActivity" />
+        <activity android:name=".DayPlanActivity" />
+        <activity android:name=".MainActivity"></activity>
 
         <receiver android:name=".Utils.AlarmWindowReceiver">
             <intent-filter>
