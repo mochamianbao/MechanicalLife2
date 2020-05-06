@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".UserInfoFragment">
+        tools:context=".UserInfoChangeActivity">
 
         <TextView
             android:id="@+id/UserInfoName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="34dp"
+            android:layout_marginLeft="34dp"
             android:text="昵称"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline28"
-            app:layout_constraintStart_toStartOf="@+id/UserInfoLook"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline27" />
 
         <TextView
@@ -42,53 +44,42 @@
             app:layout_constraintStart_toStartOf="@+id/UserInfoSex"
             app:layout_constraintTop_toTopOf="@+id/guideline29" />
 
-        <TextView
-            android:id="@+id/textView26"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="目前完成事件数"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline31"
-            app:layout_constraintStart_toStartOf="@+id/UserInfoAge"
-            app:layout_constraintTop_toTopOf="@+id/guideline30" />
-
-        <TextView
+        <EditText
             android:id="@+id/UserInfoNameget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="抹茶面包"
+            android:gravity="right"
+            android:hint="请输入用户名"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@+id/UserInfoName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.808"
             app:layout_constraintStart_toStartOf="@+id/guideline25" />
 
-        <TextView
-            android:id="@+id/UserInfoComplete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView26"
-            app:layout_constraintEnd_toEndOf="@+id/UserInfoAgeget" />
+        <RadioGroup
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/guideline29"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline25"
+            app:layout_constraintTop_toTopOf="@+id/guideline28">
 
-        <TextView
-            android:id="@+id/UserInfoAgeget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="22"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/UserInfoAge"
-            app:layout_constraintEnd_toEndOf="@+id/UserInfoSexget" />
+            <RadioButton
+                android:id="@+id/radioButtonMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text=" 男         " />
 
-        <TextView
-            android:id="@+id/UserInfoSexget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="男"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/UserInfoSex"
-            app:layout_constraintEnd_toEndOf="@+id/UserInfoNameget" />
+            <RadioButton
+                android:id="@+id/radioButtonFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="女         " />
+        </RadioGroup>
+
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline25"
@@ -139,31 +130,16 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.6" />
 
-        <ImageView
-            android:id="@+id/UserInfoLookget"
+        <NumberPicker
+            android:id="@+id/UserInfoAgeget"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/weixintx"
-            app:layout_constraintBottom_toTopOf="@+id/guideline27"
+            android:layout_centerHorizontal="true"
+            android:scrollbarSize="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline30"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline26"
-            app:layout_constraintVertical_bias="1.0"
-            app:srcCompat="@drawable/user" />
-
-        <TextView
-            android:id="@+id/UserInfoLook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="头像"
-            android:textSize="24sp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/guideline27"
-            app:layout_constraintEnd_toStartOf="@+id/guideline25"
-            app:layout_constraintHorizontal_bias="0.215"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline26"
-            app:layout_constraintVertical_bias="0.5" />
+            app:layout_constraintStart_toStartOf="@+id/guideline25"
+            app:layout_constraintTop_toTopOf="@+id/guideline29"></NumberPicker>
 
         <Button
             android:id="@+id/user_info_btn"

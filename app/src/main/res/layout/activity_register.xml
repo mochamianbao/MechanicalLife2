@@ -21,7 +21,7 @@
         <ImageView
             android:id="@+id/loginImage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="109dp"
             android:background="#03A9F4"
             app:srcCompat="@drawable/user" />
 
@@ -73,6 +73,46 @@
                 android:ems="10"
                 android:inputType="textPassword" />
 
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="年龄" />
+
+
+            <NumberPicker
+                android:id="@+id/UserInfoAgeget"
+                android:layout_width="match_parent"
+                android:layout_height="97dp"
+                android:layout_centerHorizontal="true"
+                android:scrollbarSize="0dp"></NumberPicker>
+
+            <TextView
+                android:id="@+id/textViewSexChoose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="年龄" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioButtonMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text=" 男         " />
+
+                <RadioButton
+                    android:id="@+id/radioButtonFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="女         " />
+            </RadioGroup>
+
             <Button
                 android:id="@+id/buttonRegister"
                 android:layout_width="match_parent"
@@ -87,7 +127,10 @@
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
             android:layout_marginRight="5dp"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
 
 
 

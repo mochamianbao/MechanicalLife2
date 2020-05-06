@@ -218,7 +218,6 @@ public class CreateEventActivity extends AppCompatActivity {
                 Log.i("增加事件信息","---------------------------------");
                 try {
 
-
                     createNewEvent();
                 } catch (ParseException e) {
 

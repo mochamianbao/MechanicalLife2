@@ -65,8 +65,6 @@ public class EventDao {
             //增加一条事件信息记录
             id = db.insert("myevent", null, values);
 
-            System.out.println("进来了吗？？？？？？？？？？？？？？");
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -210,60 +208,7 @@ public class EventDao {
     }
 
 
-    /**
-     * 查询一天事情信息列表
-     */
-    public int queryIdByDate(int dateNumber,String strWeekFlag){
-        //返回值
-        List elist = new ArrayList();
-        //创建数据库操作对象
-        SQLiteDatabase db = null;
-        int i = 0;
-        db = dbhelper.getReadableDatabase();
-        try {
-            //查询
-            String sql = "select *from myevent where yearEnd*10000+monthEnd*100+dayEnd > " + dateNumber +" and yearStart*10000+monthStart*100+dayStart < " + dateNumber+" and "+strWeekFlag+" = 1 ";
-//            Log.i("数据库","**************"+sql);
-            Cursor cursor = db.rawQuery(sql,null);
-            //循环取出数据
-            i = cursor.getCount();
-//            Log.i("数据库queryIdByDate方法","********"+i+"***"+dateNumber);
-//            while (cursor.moveToNext()){
-//                //取数据
-//
-//                int week1 = cursor.getInt(cursor.getColumnIndex("week1"));
-//                int week2 = cursor.getInt(cursor.getColumnIndex("week2"));
-//                int week3 = cursor.getInt(cursor.getColumnIndex("week3"));
-//                int week4 = cursor.getInt(cursor.getColumnIndex("week4"));
-//                int week5 = cursor.getInt(cursor.getColumnIndex("week5"));
-//                int week6 = cursor.getInt(cursor.getColumnIndex("week6"));
-//                int week7 = cursor.getInt(cursor.getColumnIndex("week7"));
 
-
-                //封装到个人对象
-//                MyEvent event =new MyEvent(idt,eventName,eventType,eventStateNow,completedDays,yearStart,monthStart,dayStart,yearEnd,monthEnd,dayEnd,hourStart,hourEnd,minuteStart,minuteEnd,week1,week2,week3,week4,week5,week6,week7);
-                //将事件对象加入集合中
-//                elist.add(event);
-//                Log.i("增加事件信息", "开始日期:" + event.getYearStart() + "/" + event.getMonthStart() + "/" + event.getDayStart()
-//                        + "结束日期:" + event.getYearEnd() + "/" + event.getMonthEnd() + "/" + event.getDayEnd()
-//                        + "开始时间:" + event.getHourStart() + ":" + event.getMinuteStart()
-//                        + "结束时间:" + event.getHourEnd() + ":" + event.getMinuteEnd() +
-//                        "事件类型" + event.getEventType() + "事件名字" + event.getEventName() +
-//                        "-----week1" + event.getWeek1() + "-----week2" + event.getWeek2() + "-----week2" + event.getWeek3() +
-//                        "-----week4" + event.getWeek4() + "-----week5" + event.getWeek5() + "-----week6" + event.getWeek6() +
-//                        "-----week7" + event.getWeek7());
-
-//            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (db!=null){
-                db.close();
-            }
-        }
-        return i;
-
-    }
 
     /**
      * 根据Id查询事情信息
@@ -601,6 +546,31 @@ public class EventDao {
 
     }
 
+
+    /**
+     * 查询某天存在的所有事件数
+     */
+    public int queryIdByDate(int dateNumber,String strWeekFlag){
+        //创建数据库操作对象
+        SQLiteDatabase db = null;
+        int i = 0;
+        db = dbhelper.getReadableDatabase();
+        try {
+            //查询
+            String sql = "select *from myevent where yearEnd*10000+monthEnd*100+dayEnd > " + dateNumber +" and yearStart*10000+monthStart*100+dayStart < " + dateNumber+" and "+strWeekFlag+" = 1 ";
+            Cursor cursor = db.rawQuery(sql,null);
+            //循环取出数据
+            i = cursor.getCount();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (db!=null){
+                db.close();
+            }
+        }
+        return i;
+
+    }
 
     /**
      * 修改事件执行状态

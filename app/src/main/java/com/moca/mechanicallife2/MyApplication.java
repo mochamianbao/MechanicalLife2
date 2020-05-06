@@ -9,6 +9,7 @@ import android.content.Intent;
 import com.moca.mechanicallife2.dao.EventDao;
 import com.moca.mechanicallife2.myentity.DateAndTime;
 import com.moca.mechanicallife2.myentity.MyEvent;
+import com.moca.mechanicallife2.myentity.MyUser;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,6 +19,8 @@ import java.util.List;
 //控制整个程序的全局变量
 public class MyApplication extends Application {
     private static  int HAVE_EVENT_PROGRESS = 0;
+
+    private static MyUser thisUser = new MyUser();
 
     public static void setHaveEventProgress(int haveEventProgress) {
         HAVE_EVENT_PROGRESS = haveEventProgress;
@@ -80,7 +83,6 @@ public class MyApplication extends Application {
 
     }
 
-
     public DateAndTime getTodayEventList (){
         Calendar cal=Calendar.getInstance();
         DateAndTime dateAndTime = new DateAndTime();
@@ -115,6 +117,14 @@ public class MyApplication extends Application {
         dateAndTime.myDay=cal.get(Calendar.DAY_OF_MONTH);
 
         return dateAndTime;
+    }
+
+    public static MyUser getThisUser() {
+        return thisUser;
+    }
+
+    public static void setThisUser(MyUser thisUser) {
+        MyApplication.thisUser = thisUser;
     }
 }
 
