@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">MechanicalLife2</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bottom_btn1">计划</string>
+    <string name="bottom_btn2">统计</string>
+    <string name="bottom_btn3">用户</string>
+    <string name="day_plan_11">事件名称：</string>
+    <string name="day_plan_12">计划执行天数</string>
+    <string name="day_plan_13">当前执行天数</string>
+    <string name="day_plan_14">每日开始时间</string>
+    <string name="day_plan_15">每日结束时间</string>
+    <string name="day_plan_16">事件类型</string>
+    <string name="day_plan_17">当天执行状态</string>
+    <string name="week_1">周一</string>
+    <string name="week_2">周二</string>
+    <string name="week_3">周三</string>
+    <string name="week_4">周四</string>
+    <string name="week_5">周五</string>
+    <string name="week_6">周六</string>
+    <string name="week_7">周日</string>
+</resources>
