@@ -82,7 +82,7 @@ public class EventDao {
     /**
      * 查询事情信息列表
      */
-    public List queryAllById(){
+    public List queryAllEvent(){
         //返回值
         List elist = new ArrayList();
         //创建数据库操作对象
@@ -186,14 +186,14 @@ public class EventDao {
                 MyEvent event =new MyEvent(idt,eventName,eventType,eventStateNow,completedDays,yearStart,monthStart,dayStart,yearEnd,monthEnd,dayEnd,hourStart,hourEnd,minuteStart,minuteEnd,week1,week2,week3,week4,week5,week6,week7);
                 //将事件对象加入集合中
                 elist.add(event);
-//                Log.i("增加事件信息", "开始日期:" + event.getYearStart() + "/" + event.getMonthStart() + "/" + event.getDayStart()
-//                        + "结束日期:" + event.getYearEnd() + "/" + event.getMonthEnd() + "/" + event.getDayEnd()
-//                        + "开始时间:" + event.getHourStart() + ":" + event.getMinuteStart()
-//                        + "结束时间:" + event.getHourEnd() + ":" + event.getMinuteEnd() +
-//                        "事件类型" + event.getEventType() + "事件名字" + event.getEventName() +
-//                        "-----week1" + event.getWeek1() + "-----week2" + event.getWeek2() + "-----week2" + event.getWeek3() +
-//                        "-----week4" + event.getWeek4() + "-----week5" + event.getWeek5() + "-----week6" + event.getWeek6() +
-//                        "-----week7" + event.getWeek7());
+                Log.i("增加事件信息", "开始日期:" + event.getYearStart() + "/" + event.getMonthStart() + "/" + event.getDayStart()
+                        + "结束日期:" + event.getYearEnd() + "/" + event.getMonthEnd() + "/" + event.getDayEnd()
+                        + "开始时间:" + event.getHourStart() + ":" + event.getMinuteStart()
+                        + "结束时间:" + event.getHourEnd() + ":" + event.getMinuteEnd() +
+                        "事件类型" + event.getEventType() + "事件名字" + event.getEventName() +
+                        "-----week1" + event.getWeek1() + "-----week2" + event.getWeek2() + "-----week2" + event.getWeek3() +
+                        "-----week4" + event.getWeek4() + "-----week5" + event.getWeek5() + "-----week6" + event.getWeek6() +
+                        "-----week7" + event.getWeek7());
                 System.out.println(event.getId()+"         "+event.getEventName());
 
             }
@@ -582,7 +582,7 @@ public class EventDao {
         String sql = "update myevent set eventStateNow = ? where id = ?";
         db.execSQL(sql,new Object[]{state,id});
 
-        Log.i("数据库测试","updateEventStateNowById");
+        Log.i("数据库测试","updateEventStateNowById  "+ id + "   "+state);
 
     }
 

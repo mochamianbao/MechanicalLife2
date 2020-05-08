@@ -72,6 +72,15 @@ public class UserInfoChangeActivity extends AppCompatActivity {
             }
         });
 
+
+        //返回
+        binding.userInfoBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     //年龄选择器

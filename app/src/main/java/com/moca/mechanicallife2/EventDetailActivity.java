@@ -31,6 +31,7 @@ public class EventDetailActivity extends AppCompatActivity {
     private List<MyEvent> myEvents;
     int thisHour;
     int thisMinute;
+    int thisWeek;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +73,10 @@ public class EventDetailActivity extends AppCompatActivity {
                                 int nowTimeNum = thisHour*60+thisMinute;
 
 
-                                if (myEvent.getEventStateNow()==1){
+                                if (isTodayDo(myEvent) == 0){
+                                    Toast.makeText(EventDetailActivity.this,"此事件不在今日执行",Toast.LENGTH_LONG).show();
+                                }
+                                else if (myEvent.getEventStateNow()==1){
                                     Toast.makeText(EventDetailActivity.this,"此事件进行中",Toast.LENGTH_LONG).show();
                                 }
                                 else if (myEvent.getEventStateNow()==2){
@@ -89,6 +93,7 @@ public class EventDetailActivity extends AppCompatActivity {
                                 eventDao.updateEventStateNowById(myEvent.getId(),1);//设置当前事件状态为进行中
                                 userDao.changeEventprogress(MyApplication.getThisUser().getUid(),1);
                                 setFinishWindow(myEvent.getEventName(),myEvent.getId(),myEvent.getHourEnd(),myEvent.getMinuteEnd(),0);
+                                    Toast.makeText(EventDetailActivity.this,myEvent.getEventName()+"事件开始执行，请不要中途退出程序",Toast.LENGTH_LONG).show();
                                 }else {
                                     Toast.makeText(EventDetailActivity.this,"已经有进行的事件了",Toast.LENGTH_LONG).show();
 
@@ -180,8 +185,41 @@ public class EventDetailActivity extends AppCompatActivity {
     //获取当前时间
     private void getTime() {
         Calendar cal=Calendar.getInstance();
+//        cal.add(Calendar.DAY_OF_MONTH,1);
         thisHour=cal.get(Calendar.HOUR_OF_DAY);
         thisMinute =cal.get(Calendar.MINUTE);
+        thisWeek = cal.get(Calendar.DAY_OF_WEEK);
 
     }
+
+    //观察是否今天执行
+    public int isTodayDo(MyEvent myEvent){
+        int flag = 0;
+        if (thisWeek == 2){
+            flag = myEvent.getWeek1();
+        }
+        else if (thisWeek == 3){
+            flag = myEvent.getWeek2();
+        }
+        else if (thisWeek == 4){
+            flag = myEvent.getWeek3();
+        }
+        else if (thisWeek == 5){
+            flag = myEvent.getWeek4();
+        }
+        else if (thisWeek == 6){
+            flag = myEvent.getWeek5();
+        }
+        else if (thisWeek == 7){
+            flag = myEvent.getWeek6();
+        }
+        else if (thisWeek == 1){
+            flag = myEvent.getWeek7();
+        }
+
+        return flag;
+
+    }
+
+
 }

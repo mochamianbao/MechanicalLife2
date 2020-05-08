@@ -42,43 +42,21 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-//        System.out.println("全局变量？");
-
 
         List<MyEvent> myEvents = new ArrayList();
         //获取今天的日期信息
         todayEventList = getTodayEventList();
         //获取今天的所有事件信息
         myEvents = eventDao.queryAllByDate(todayEventList.getMyDateNumber(),todayEventList.strWeekFlag);
-
-//        Log.i("qqqqq","*******************************************"+myEvents.size());
         //初始化闹钟
-        for (int i = 0; i < myEvents.size(); i++) {
-            MyEvent myEvent = myEvents.get(i);
-            setAlarmWindow(myEvent.getEventName(),myEvent.getHourStart(),myEvent.getMinuteStart(),i);
-        }
-
-        //初始化今日事件完成状态信息
-        for (int i = 0; i < myEvents.size(); i++) {
-            MyEvent myEvent = myEvents.get(i);
-            if (myEvent.getEventStateNow() == 1){
-                //进行中事件在退出程序后直接判为未完成事件
-                eventDao.updateEventStateNowById(myEvent.getId(),3);
-                System.out.println("               22222222");
-            }
-            else if (myEvent.getEventStateNow() == 0){
-                //若待办事件的开始时间超过五分钟，直接转为未完成事件
-                int eventStartTimeNum = myEvent.getHourStart()*60+myEvent.getMonthStart();
-                int nowTimeNum = todayEventList.myHour*60+todayEventList.myMinute;
-                if ((nowTimeNum-eventStartTimeNum)>5){
-                    eventDao.updateEventStateNowById(myEvent.getId(),3);
-                }
-
-            }
-        }
+//        for (int i = 0; i < myEvents.size(); i++) {
+//            MyEvent myEvent = myEvents.get(i);
+//            setAlarmWindow(myEvent.getEventName(),myEvent.getHourStart(),myEvent.getMinuteStart(),i);
+//        }
 
 
-//        init();
+
+
 
     }
 
@@ -101,37 +79,38 @@ public class MyApplication extends Application {
 
 
 
-    public void setAlarmWindow(String eventName, int startHour, int startMinute, int num){
-
-        Calendar mCalendar = Calendar.getInstance();
-        mCalendar.setTimeInMillis(System.currentTimeMillis());
-
-        //设置在几点提醒  设置的为0点
-        mCalendar.set(Calendar.HOUR_OF_DAY, startHour);
-        //设置在几分提醒  设置的为0分
-        mCalendar.set(Calendar.MINUTE, startMinute);
-
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        intent.putExtra("eventName",eventName);
-//        intent.putExtra("endHour",endHour);
-//        intent.putExtra("endMinute",endMinute);
-//        intent.putExtra("num",num);
-        intent.setComponent(new ComponentName("com.moca.mechanicallife2",
-                "com.moca.mechanicallife2.Utils.AlarmWindowReceiver"));
-//        String content = input.getText().toString();
-//        intent.putExtra(Constants.KEY_CONTENT,content);
-        PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), num, intent, 0);
-
-        //得到AlarmManager实例
-        AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
-        am.set(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), pi);
-
-
-    }
+//    public void setAlarmWindow(String eventName, int startHour, int startMinute, int num){
+//
+//        Calendar mCalendar = Calendar.getInstance();
+//        mCalendar.setTimeInMillis(System.currentTimeMillis());
+//
+//        //设置在几点提醒  设置的为0点
+//        mCalendar.set(Calendar.HOUR_OF_DAY, startHour);
+//        //设置在几分提醒  设置的为0分
+//        mCalendar.set(Calendar.MINUTE, startMinute);
+//
+//        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//        intent.putExtra("eventName",eventName);
+////        intent.putExtra("endHour",endHour);
+////        intent.putExtra("endMinute",endMinute);
+////        intent.putExtra("num",num);
+//        intent.setComponent(new ComponentName("com.moca.mechanicallife2",
+//                "com.moca.mechanicallife2.Utils.AlarmWindowReceiver"));
+////        String content = input.getText().toString();
+////        intent.putExtra(Constants.KEY_CONTENT,content);
+//        PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), num, intent, 0);
+//
+//        //得到AlarmManager实例
+//        AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
+//        am.set(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), pi);
+//
+//
+//    }
 
     public DateAndTime getTodayEventList (){
         Calendar cal=Calendar.getInstance();
         DateAndTime dateAndTime = new DateAndTime();
+//        cal.add(Calendar.DAY_OF_MONTH,1);
         int week=cal.get(Calendar.DAY_OF_WEEK);//获取今天星期几
         switch (week){
             case 2:
@@ -163,7 +142,7 @@ public class MyApplication extends Application {
         dateAndTime.myDay=cal.get(Calendar.DAY_OF_MONTH);
         dateAndTime.myHour=cal.get(Calendar.HOUR_OF_DAY);
         dateAndTime.myMinute=cal.get(Calendar.MINUTE);
-
+        System.out.println("Application今日时间："+dateAndTime.myMonth+"---"+dateAndTime.myDay);
         return dateAndTime;
     }
 

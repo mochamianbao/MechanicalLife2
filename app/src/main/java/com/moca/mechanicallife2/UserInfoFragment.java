@@ -107,6 +107,11 @@ public class UserInfoFragment extends Fragment {
                 startActivity(new Intent(getActivity(), UserInfoChangeActivity.class));
             }
         });
+
+
+
+
+
     }
 
 
