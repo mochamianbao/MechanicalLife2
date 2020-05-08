@@ -22,7 +22,7 @@
             android:id="@+id/loginImage"
             android:layout_width="match_parent"
             android:layout_height="109dp"
-            android:background="#03A9F4"
+            android:background="@color/mybule"
             app:srcCompat="@drawable/user" />
 
         <LinearLayout

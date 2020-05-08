@@ -120,17 +120,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         viewPager.setCurrentItem(num);
         //改变底部标签
         if (num == 0){
-            tab_1.setBackgroundColor(Color.RED);
+            tab_1.setBackgroundColor(Color.GRAY);
             tab_2.setBackgroundColor(Color.WHITE);
             tab_3.setBackgroundColor(Color.WHITE);
         }else if (num == 1){
             tab_1.setBackgroundColor(Color.WHITE);
-            tab_2.setBackgroundColor(Color.RED);
+            tab_2.setBackgroundColor(Color.GRAY);
             tab_3.setBackgroundColor(Color.WHITE);
         }else if (num == 2){
             tab_1.setBackgroundColor(Color.WHITE);
             tab_2.setBackgroundColor(Color.WHITE);
-            tab_3.setBackgroundColor(Color.RED);
+            tab_3.setBackgroundColor(Color.GRAY);
         }
     }
 
@@ -170,17 +170,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onPageSelected(int position) {
             if (position == 0){
-                tab_1.setBackgroundColor(Color.RED);
+                tab_1.setBackgroundColor(Color.GRAY);
                 tab_2.setBackgroundColor(Color.WHITE);
                 tab_3.setBackgroundColor(Color.WHITE);
             }else if (position == 1){
                 tab_1.setBackgroundColor(Color.WHITE);
-                tab_2.setBackgroundColor(Color.RED);
+                tab_2.setBackgroundColor(Color.GRAY);
                 tab_3.setBackgroundColor(Color.WHITE);
             }else if (position == 2){
                 tab_1.setBackgroundColor(Color.WHITE);
                 tab_2.setBackgroundColor(Color.WHITE);
-                tab_3.setBackgroundColor(Color.RED);
+                tab_3.setBackgroundColor(Color.GRAY);
             }
         }
 

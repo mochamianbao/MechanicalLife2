@@ -22,7 +22,7 @@
             android:id="@+id/loginImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@color/mybule"
             android:src="@drawable/user" />
 
         <LinearLayout
@@ -83,14 +83,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="" />
-
-            <TextView
-                android:id="@+id/textViewforgin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="忘记密码"
-                android:textColor="#2196F3" />
 
             <TextView
                 android:id="@+id/textViewRedister"
