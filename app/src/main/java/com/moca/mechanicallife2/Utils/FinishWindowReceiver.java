@@ -35,14 +35,14 @@ public class FinishWindowReceiver extends BroadcastReceiver {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case AlertDialog.BUTTON_POSITIVE:
-                                if (myEvent.getId()==1){
                                    eventDao.updateEventStateNowById(eventId,2);
                                     userDao.changethisDayCompletedNum(MyApplication.getThisUser().getUid(),MyApplication.getThisUser().getThisDayCompletedNum()+1);
                                     userDao.changethisWeekCompletedNum(MyApplication.getThisUser().getUid(),MyApplication.getThisUser().getThisWeekCompletedNum()+1);
                                     userDao.changethisMonthCompletedNum(MyApplication.getThisUser().getUid(),MyApplication.getThisUser().getThisMonthCompletedNum()+1);
                                     userDao.changethisUserCompletedNum(MyApplication.getThisUser().getUid(),MyApplication.getThisUser().getThisUserCompletedNum()+1);
                                     userDao.changeEventprogress(MyApplication.getThisUser().getUid(),0);
-                                }
+                                    System.out.println("FinishWindowReceiver完成");
+
                                 break;
                             default:
                                 break;

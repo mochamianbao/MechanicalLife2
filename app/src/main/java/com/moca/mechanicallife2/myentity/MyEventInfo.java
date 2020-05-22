@@ -106,6 +106,12 @@ public class MyEventInfo {
         return str;
     }
 
+    public int getEventTypeNumber() {
+
+        return eventType;
+    }
+
+
     public String getEventStateNow() {
         String str = new String();
         switch (eventStateNow){
@@ -129,5 +135,9 @@ public class MyEventInfo {
 
     public String getCompletedDays() {
         return String.valueOf(completedDays);
+    }
+
+    public int getId() {
+        return id;
     }
 }

@@ -120,9 +120,15 @@ public class MainPlanFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         //日期标题跳转的代码
+        Calendar todaycal=Calendar.getInstance();
+        int today=todaycal.get(Calendar.DAY_OF_MONTH);
 
         final DateandTime dateandTime1 = setDateandTime(1);
         binding.topWeek1.setText("周一"+dateandTime1.myMonth+"/"+dateandTime1.myDay);
+        if (today == dateandTime1.myDay){
+            binding.topWeek1.setTextColor(Color.RED);
+            binding.topWeek1.setBackgroundColor(Color.parseColor("#D6D1D8"));
+        }
         //跳转到日计划页面
         binding.topWeek1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,6 +140,10 @@ public class MainPlanFragment extends Fragment {
 
         final DateandTime dateandTime2 = setDateandTime(2);
         binding.topWeek2.setText("周二"+dateandTime2.myMonth+"/"+dateandTime2.myDay);
+        if (today == dateandTime2.myDay){
+            binding.topWeek2.setTextColor(Color.RED);
+            binding.topWeek2.setBackgroundColor(Color.GRAY);
+        }
         //跳转到日计划页面
         binding.topWeek2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,6 +155,10 @@ public class MainPlanFragment extends Fragment {
 
         final DateandTime dateandTime3 = setDateandTime(3);
         binding.topWeek3.setText("周三"+dateandTime3.myMonth+"/"+dateandTime3.myDay);
+        if (today == dateandTime3.myDay){
+            binding.topWeek3.setTextColor(Color.RED);
+            binding.topWeek3.setBackgroundColor(Color.GRAY);
+        }
         //跳转到日计划页面
         binding.topWeek3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,6 +170,10 @@ public class MainPlanFragment extends Fragment {
 
         final DateandTime dateandTime4 = setDateandTime(4);
         binding.topWeek4.setText("周四"+dateandTime4.myMonth+"/"+dateandTime4.myDay);
+        if (today == dateandTime4.myDay){
+            binding.topWeek4.setTextColor(Color.RED);
+            binding.topWeek4.setBackgroundColor(Color.GRAY);
+        }
         //跳转到日计划页面
         binding.topWeek4.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,6 +185,10 @@ public class MainPlanFragment extends Fragment {
 
         final DateandTime dateandTime5 = setDateandTime(5);
         binding.topWeek5.setText("周五"+dateandTime5.myMonth+"/"+dateandTime5.myDay);
+        if (today == dateandTime5.myDay){
+            binding.topWeek5.setTextColor(Color.RED);
+            binding.topWeek5.setBackgroundColor(Color.GRAY);
+        }
         //跳转到日计划页面
         binding.topWeek5.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,6 +201,10 @@ public class MainPlanFragment extends Fragment {
 
         final DateandTime dateandTime6 = setDateandTime(6);
         binding.topWeek6.setText("周六"+dateandTime6.myMonth+"/"+dateandTime6.myDay);
+        if (today == dateandTime6.myDay){
+            binding.topWeek6.setTextColor(Color.RED);
+            binding.topWeek6.setBackgroundColor(Color.GRAY);
+        }
         //跳转到日计划页面
         binding.topWeek6.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,6 +217,10 @@ public class MainPlanFragment extends Fragment {
 
         final DateandTime dateandTime7 = setDateandTime(7);
         binding.topWeek7.setText("周日"+dateandTime7.myMonth+"/"+dateandTime7.myDay);
+        if (today == dateandTime7.myDay){
+            binding.topWeek7.setTextColor(Color.RED);
+            binding.topWeek7.setBackgroundColor(Color.GRAY);
+        }
         //跳转到日计划页面
         binding.topWeek7.setOnClickListener(new View.OnClickListener() {
             @Override

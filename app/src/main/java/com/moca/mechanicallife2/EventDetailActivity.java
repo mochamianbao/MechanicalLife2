@@ -69,7 +69,7 @@ public class EventDetailActivity extends AppCompatActivity {
                                 // 点击“确认”后的操作
 
                                 getTime();
-                                int eventStartTimeNum = myEvent.getHourStart()*60+myEvent.getMonthStart();
+                                int eventStartTimeNum = myEvent.getHourStart()*60+myEvent.getMinuteStart();
                                 int nowTimeNum = thisHour*60+thisMinute;
 
 
@@ -86,13 +86,15 @@ public class EventDetailActivity extends AppCompatActivity {
                                     Toast.makeText(EventDetailActivity.this,"此事件今天已过时",Toast.LENGTH_LONG).show();
                                 }
                                 else if ((nowTimeNum-eventStartTimeNum)>5){
+                                    System.out.println(nowTimeNum);
+                                    System.out.println(eventStartTimeNum);
                                     Toast.makeText(EventDetailActivity.this,"离事件开始已超过5分钟，今天不能再进行，请下次按时完成",Toast.LENGTH_LONG).show();
                                 }
                                 else if (userDao.findEventprogress(MyApplication.getThisUser().getUid()) ==  0){
                                 System.out.println(myEvent.getEventName()+"   "+myEvent.getEventStateNow());
                                 eventDao.updateEventStateNowById(myEvent.getId(),1);//设置当前事件状态为进行中
                                 userDao.changeEventprogress(MyApplication.getThisUser().getUid(),1);
-                                setFinishWindow(myEvent.getEventName(),myEvent.getId(),myEvent.getHourEnd(),myEvent.getMinuteEnd(),0);
+                                setFinishWindow(myEvent,0);
                                     Toast.makeText(EventDetailActivity.this,myEvent.getEventName()+"事件开始执行，请不要中途退出程序",Toast.LENGTH_LONG).show();
                                 }else {
                                     Toast.makeText(EventDetailActivity.this,"已经有进行的事件了",Toast.LENGTH_LONG).show();
@@ -148,21 +150,43 @@ public class EventDetailActivity extends AppCompatActivity {
 
     }
 
-    public void setFinishWindow(String eventName,int eventId, int endHour, int endMinute, int num){
+    //设置定时结束弹窗
+    public void setFinishWindow(MyEvent myEvent, int num){
 
 
         Calendar mCalendar = Calendar.getInstance();
         mCalendar.setTimeInMillis(System.currentTimeMillis());
 
+        //处理定时时间
+        int setHour=mCalendar.get(Calendar.HOUR_OF_DAY);//获取当前小时数
+        int setMinute=mCalendar.get(Calendar.MINUTE);//获取当前分钟数
+        int intervalHour;//相差小时数
+        int intrevalMintue;//相差分钟数
+
+        intervalHour = myEvent.getHourEnd()-myEvent.getHourStart();
+        intrevalMintue = myEvent.getMinuteEnd()-myEvent.getMinuteStart();
+        if (intrevalMintue<0){
+            intrevalMintue = - intrevalMintue;
+            intervalHour = intervalHour - 1;
+        }
+
+        setHour = setHour + intervalHour;
+        setMinute = setMinute +intrevalMintue;
+        if (setMinute>59){
+            setMinute = setMinute - 60;
+            setHour = setHour + 1;
+        }
+        System.out.println("设置具体结束时间"+setHour+":"+setMinute);
+
         //设置在几点提醒  设置的为0点
-        mCalendar.set(Calendar.HOUR_OF_DAY, endHour);
+        mCalendar.set(Calendar.HOUR_OF_DAY, setHour);
         //设置在几分提醒  设置的为0分
-        mCalendar.set(Calendar.MINUTE, endMinute);
+        mCalendar.set(Calendar.MINUTE, setMinute);
 
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putInt("eventId",eventId);
-        bundle.putString("eventName",eventName);
+        bundle.putInt("eventId",myEvent.getId());
+        bundle.putString("eventName",myEvent.getEventName());
 
         intent.putExtras(bundle);
 //        intent.putExtra("endHour",endHour);

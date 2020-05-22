@@ -129,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         else if (myEvent.getEventStateNow() == 0){
                             //若待办事件的开始时间超过五分钟，直接转为未完成事件
-                            int eventStartTimeNum = myEvent.getHourStart()*60+myEvent.getMonthStart();
+                            int eventStartTimeNum = myEvent.getHourStart()*60+myEvent.getMinuteStart();
                             int nowTimeNum = todayEventList.myHour*60+todayEventList.myMinute;
                             if ((nowTimeNum-eventStartTimeNum)>5){
                                 System.out.println("超过五分钟，直接转为未完成事件"+myEvent.getId());

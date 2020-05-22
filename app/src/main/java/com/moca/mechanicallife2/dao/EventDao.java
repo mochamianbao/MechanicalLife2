@@ -492,7 +492,7 @@ public class EventDao {
         db = dbhelper.getReadableDatabase();
         try {
             //查询
-            String sql = "select *from myevent where yearEnd*10000+monthEnd*100+dayEnd > " + dataNumber1 +" and yearStart*10000+monthStart*100+dayStart < " + dataNumber;
+            String sql = "select *from myevent where yearEnd*10000+monthEnd*100+dayEnd+1 > " + dataNumber1 +" and yearStart*10000+monthStart*100+dayStart-1 < " + dataNumber;
 //            Log.i("数据库","**************"+sql);
             Cursor cursor = db.rawQuery(sql,null);
             //循环取出数据
@@ -558,7 +558,8 @@ public class EventDao {
         db = dbhelper.getReadableDatabase();
         try {
             //查询
-            String sql = "select *from myevent where yearEnd*10000+monthEnd*100+dayEnd > " + dateNumber +" and yearStart*10000+monthStart*100+dayStart < " + dateNumber+" and "+strWeekFlag+" = 1 ";
+            String sql = "select *from myevent where yearEnd*10000+monthEnd*100+dayEnd+1 > " + dateNumber +" and yearStart*10000+monthStart*100+dayStart-1 < " + dateNumber+" and "+strWeekFlag+" = 1 ";
+            System.out.println("统计页面测试"+sql);
             Cursor cursor = db.rawQuery(sql,null);
             //循环取出数据
             i = cursor.getCount();

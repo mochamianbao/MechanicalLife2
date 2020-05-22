@@ -1,6 +1,7 @@
 package com.moca.mechanicallife2;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -48,7 +49,14 @@ public class StatisticsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        MyDateUtil myDateUtil = new MyDateUtil();
+
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        final MyDateUtil myDateUtil = new MyDateUtil();
         myDateUtil.getMonthFrist();
         myDateUtil.getMonthLast();
         myDateUtil.getWeekFrist();
@@ -69,66 +77,53 @@ public class StatisticsFragment extends Fragment {
         binding.thisMonthFinish.setText(String.valueOf(MyApplication.getThisUser().getThisMonthCompletedNum()));
 
 
+        binding.dayLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),ShowEventListActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("startDateNumber",getTodayDate().getMyDateNumber());
+                bundle.putInt("endDateNumber",getTodayDate().getMyDateNumber());
+                bundle.putInt("week",getTodayDate().myWeek);
+                bundle.putInt("flag",0);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+        binding.weekLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),ShowEventListActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("startDateNumber",myDateUtil.getWeekFrist().myDateNumber);
+                bundle.putInt("endDateNumber",myDateUtil.getWeekLast().myDateNumber);
+                bundle.putInt("flag",1);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+        binding.monthLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),ShowEventListActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("startDateNumber",myDateUtil.getMonthFrist().myDateNumber);
+                bundle.putInt("endDateNumber",myDateUtil.getMonthLast().myDateNumber);
+                bundle.putInt("flag",1);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+
+
         binding.statisticsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
-    }
 
-    //废案，貌似内存会爆炸
-    public int getSpanPlanNumber2(DateAndTime startDate, DateAndTime endDate){
-        EventDao eventDao = new EventDao(getActivity());
-        List<MyEvent> list = eventDao.querySpanByDate(startDate.myDateNumber, endDate.myDateNumber);
-        int fristWeek = startDate.myWeek-1;//为方便遍历进行减一处理，循环中会加上
-        Calendar calendar = startDate.myCalendar;
-//        Log.i("结果","进来了吗"+endDate.myDay+"-"+startDate.myDay);
-        int num= 0;
-        for (int i = 0 ; i < endDate.myDay - startDate.myDay ; i++){
-            int nowDateNumber =calendar.get(Calendar.YEAR)*10000+(calendar.get(Calendar.MONTH)+1)*100+calendar.get(Calendar.DAY_OF_MONTH);
-            int eventStartDateNumber = list.get(i).getYearStart()*10000+list.get(i).getMonthStart()*100+list.get(i).getDayStart();
-            int eventEndDateNumber = list.get(i).getYearEnd()*10000+list.get(i).getMonthEnd()*100+list.get(i).getDayEnd();
-            int eventWeekState = 0;
-            switch (fristWeek+1){
-                case 1:
-                    eventWeekState = list.get(i).getWeek1();
-                    break;
-                case 2:
-                    eventWeekState = list.get(i).getWeek2();
-                    break;
-                case 3:
-                    eventWeekState = list.get(i).getWeek3();
-                    break;
-                case 4:
-                    eventWeekState = list.get(i).getWeek4();
-                    break;
-                case 5:
-                    eventWeekState = list.get(i).getWeek5();
-                    break;
-                case 6:
-                    eventWeekState = list.get(i).getWeek6();
-                    break;
-                case 7:
-                    eventWeekState = list.get(i).getWeek7();
-                default:
-                    break;
-            }
-
-            if (eventWeekState==1 && eventEndDateNumber> nowDateNumber && eventStartDateNumber < nowDateNumber){
-                num++;
-            }
-            calendar.add(Calendar.DATE,1);
-            fristWeek=(fristWeek+1)%7;
-            System.out.println("周"+(fristWeek+1)+":"+list.get(i).getEventName());
-
-        }
-
-        Log.i("结果",":"+num);
-
-
-
-        return num;
 
     }
 
@@ -183,14 +178,11 @@ public class StatisticsFragment extends Fragment {
     }
 
     public int getSpanPlanNumberToday(){
-        DateAndTime dateAndTime = new DateAndTime();
+        DateAndTime dateAndTime = getTodayDate();
         EventDao eventDao = new EventDao(getActivity());
-        Calendar cal = Calendar.getInstance();
+
         int num = 0 ;
-        dateAndTime.myYear = cal.get(Calendar.YEAR);
-        dateAndTime.myMonth = cal.get(Calendar.MONTH)+1;
-        dateAndTime.myDay = cal.get(Calendar.DAY_OF_MONTH);
-        dateAndTime.myWeek = cal.get(Calendar.DAY_OF_WEEK);
+
 
         String str = "";
         switch (dateAndTime.myWeek){
@@ -218,7 +210,17 @@ public class StatisticsFragment extends Fragment {
                 break;
         }
         num = eventDao.queryIdByDate(dateAndTime.getMyDateNumber(),str);
+        System.out.println("统计页面测试"+dateAndTime.getMyDateNumber());
      return num;
+    }
+    public DateAndTime getTodayDate(){
+        DateAndTime dateAndTime = new DateAndTime();
+        Calendar cal = Calendar.getInstance();
+        dateAndTime.myYear = cal.get(Calendar.YEAR);
+        dateAndTime.myMonth = cal.get(Calendar.MONTH)+1;
+        dateAndTime.myDay = cal.get(Calendar.DAY_OF_MONTH);
+        dateAndTime.myWeek = cal.get(Calendar.DAY_OF_WEEK);
+        return dateAndTime;
     }
 
 

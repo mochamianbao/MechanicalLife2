@@ -220,6 +220,7 @@ public class UserDao {
         myUser.setUserName(cursor.getString(cursor.getColumnIndex("userName")));
         myUser.setUserAge(cursor.getInt(cursor.getColumnIndex("userage")));
         myUser.setUserSex(cursor.getInt(cursor.getColumnIndex("sex")));
+        myUser.setThisUserCompletedNum(cursor.getInt(cursor.getColumnIndex("thisUserCompletedNum")));
 
         return myUser;
     }
